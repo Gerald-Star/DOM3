@@ -181,3 +181,147 @@ gpas.delete(4.0);
 for (let state of states) {
   alert(state);
 }
+
+//ES6 Strings
+//Types of Strings - multi-line strings and string interpolation.
+
+let poem = `Rises are not supported`;
+console.log(poem);
+document.getElementById("string1").innerHTML = poem;
+
+// string interpolation with backtick characters
+
+let employee = {
+  name: "John",
+  position: "Software Engineer",
+  location: "Nigeria",
+  age: "22",
+};
+
+let employeeInfo = function (object) {
+  let output = `${object.name} is a ${object.position} in our
+  ${object.location} and is ${object.age} years old`;
+  return output;
+};
+
+document.getElementById("output").innerHTML = employeeInfo(employee);
+
+// ES 6 DESTRUCTURING
+
+let person = {
+  first1: "Mark1",
+  first2: "Mark2",
+  first3: "Mark3",
+  first4: "Mark4",
+};
+
+let { first1, first2, first3, first4 } = person;
+console.log(first1);
+console.log(first2);
+console.log(first3);
+console.log(first4);
+
+let company = {
+  name: "Trivia",
+  social: {
+    twitter: "http://twitter.com",
+    facebook: "http://facebook.com",
+    instagram: "http://instagram.com",
+  },
+};
+
+// console.log(company.social.twitter);
+// console.log(company.social.facebook);
+
+// OR
+
+let { twitter, facebook } = company.social;
+console.log(twitter);
+console.log(facebook);
+
+//ES6 CLASS
+class Employee {
+  constructor(firstName, lastName, social, jobTitle, salary) {
+    this._firstName = firstName;
+    this._lastName = lastName;
+    this._social = social;
+    this._jobTitle = jobTitle;
+    this._salary = salary;
+    this._active = true;
+  }
+  //method
+  fire() {
+    this._active = false;
+  }
+  info() {
+    if (this._active) {
+      const info = `${this._firstName},
+      ${this._lastName}, 
+      ${this._jobTitle},
+      ${this._salary} 
+      per hour;
+      return info;
+      `;
+    } else {
+      const info = "Employee not active";
+      return info;
+    }
+  }
+}
+
+let scott = new Employee("Scott", "Miller", "000-00-0000", "accountant", 36.5);
+alert(scott.info());
+
+// ES6 Promise
+
+console.log("1");
+setTimeout(function () {
+  console.log("2");
+}, 3000);
+console.log("3");
+setTimeout(function () {
+  console.log("4");
+}, 1000);
+
+// ES6 PROMISE CONTINUES
+
+let promiseToClean = new Promise(function (resolve, reject) {
+  //cleaning up
+  let isClean = true;
+  if (isClean) {
+    resolve("Clean!");
+  } else {
+    reject("Not Clean!");
+  }
+  promiseToClean
+    .then(function (fromResolve) {
+      console.log("The room is " + fromResolve);
+    })
+    .catch(function (fromReject) {
+      console.log(fromReject);
+    });
+});
+
+// ES6 PROMISE
+var img = null;
+let imgPromise = new Promise(function (resolve, reject) {
+  img = new Image();
+  img.addEventListener("load", resolve(img)); //resolve takes value
+  img.addEventListener("error", reject("Error loading image")); // reject takes value
+  img.src =
+    "http://thecatapi.com/api/images/get?format=src&type=jpg&size=medium";
+});
+//set the promise object to catch promise rejection
+imgPromise
+  .then(function (fromResolve) {
+    console.log("The image has loaded successfully!");
+    let node = document.getElementById("image-holder");
+    node.appendChild(img);
+    //   setInterval(changeImage, 3000); // Change image every 3 seconds
+    setTimeout(function () {
+      console.log("4");
+    }, 1000);
+  })
+  .catch(function (fromReject) {
+    console.log(fromReject);
+  });
